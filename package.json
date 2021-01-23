@@ -14,7 +14,11 @@
   },
   "dependencies": {
     "core-js": "^3.8.2",
-    "nuxt": "^2.14.12"
+    "fibers": "^5.0.0",
+    "nuxt": "^2.14.12",
+    "pug-plain-loader": "^1.1.0",
+    "sass": "^1.32.5",
+    "sass-loader": "^10.1.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",
