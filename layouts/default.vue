@@ -26,4 +26,12 @@ body {
   box-sizing: border-box;
   margin: 0;
 }
+
+.content {
+  width: 564px;
+  height: 643px;
+  background-color: $white;
+  padding: 0.75rem;
+  @include vertical-align;
+}
 </style>

@@ -1,19 +1,53 @@
 <template>
   <div class="content">
-    <h1>Bravado Challenge</h1>
+    <div class="search-bar">
+      <input
+        class="search-bar__input"
+        v-model="search"
+        type="text"
+        placeholder="Type your search..."
+      />
+    </div>
+
+    <div class="usersList">
+      <ul>
+        <li v-for="user in filteredUsers" :key="user.email">
+          {{ user.name }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-export default {}
+const getUsers = () => import('~/data/users.json').then((d) => d.default || d)
+
+export default {
+  data() {
+    return {
+      users: [],
+      search: '',
+    }
+  },
+  async fetch() {
+    this.users = await getUsers()
+  },
+  computed: {
+    filteredUsers() {
+      return this.users.filter((user) => {
+        return user.name.match(this.search)
+      })
+    },
+  },
+}
 </script>
 
 <style lang="scss">
-.content {
-  width: 564px;
-  height: 643px;
-  background-color: $white;
-  padding: 0.75rem;
-  @include vertical-align;
+.search-bar {
+  &__input {
+    width: 100%;
+    height: 48px;
+    background-color: $light-grey;
+  }
 }
 </style>
