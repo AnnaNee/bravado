@@ -32,6 +32,29 @@ body {
   height: 643px;
   background-color: $white;
   padding: 0.75rem;
+  overflow-y: scroll;
   @include vertical-align;
+}
+
+.btn-primary {
+  color: $button;
+  background-color: transparent;
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 0.875em;
+  margin-top: 15px;
+  padding: 0 20px;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $medium-grey;
+    bottom: 38%;
+  }
 }
 </style>
