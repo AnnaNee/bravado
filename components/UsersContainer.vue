@@ -38,7 +38,7 @@ export default {
     },
   },
   watch: {
-    filter: function () {
+    filter() {
       const context = this
       this.isFiltering = true
       getUsers((response) => {
