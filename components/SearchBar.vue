@@ -36,6 +36,8 @@ export default {
   },
   methods: {
     handleSearch: debounce(function () {
+      const queryParam = this.search ? { filter: this.search } : {}
+      this.$router.replace({ name: '', query: queryParam })
       this.$emit('on-search', this.search)
     }, 1000),
   },
