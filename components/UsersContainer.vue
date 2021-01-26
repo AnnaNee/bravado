@@ -39,12 +39,14 @@ export default {
     lazyFetch(data) {
       const fetchedData = data.default.slice() || data.slice()
       const length = this.users.length
+
       return fetchedData.splice(length + 1, length + 5)
     },
     async loadUsers() {
       if (this.isFiltering) return
       const fetchedUsers = await getUsers(this.lazyFetch)
       const users = [...this.users, ...fetchedUsers]
+
       this.users = users
     },
     filterUsersBy(data, filter, fn) {
@@ -59,8 +61,10 @@ export default {
     filter() {
       const context = this
       this.isFiltering = true
+
       getUsers((response) => {
         const data = response.default.slice() || response.slice()
+
         if (context.filter) {
           context.users = context.filterUsersBy(data, this.filter, highlight)
         } else {

@@ -4,6 +4,7 @@
 
     <input
       v-model="search"
+      data-test-id="input"
       class="search-bar__input"
       type="text"
       placeholder="Type your search..."
@@ -29,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.query.filter) {
+    if (this.$route && this.$route.query.filter) {
       this.search = this.$route.query.filter
       this.$emit('on-search', this.$route.query.filter)
     }
