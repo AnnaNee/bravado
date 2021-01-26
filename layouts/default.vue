@@ -32,7 +32,6 @@ body {
   height: 643px;
   background-color: $white;
   padding: 0.75rem;
-  overflow-y: scroll;
   @include vertical-align;
 }
 
