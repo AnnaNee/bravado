@@ -15,28 +15,41 @@ export default {
   data() {
     return {
       users: [],
+      isFiltering: false,
     }
   },
   async fetch() {
     this.users = await getUsers(this.lazyFetch)
   },
-  computed: {
-    filteredUsers() {
-      return this.users.filter((user) => {
-        return user.name.match(this.filter)
-      })
-    },
-  },
   methods: {
     lazyFetch(data) {
-      const fetchedData = data.default || data
+      const fetchedData = data.default.slice() || data.slice()
       const length = this.users.length
       return fetchedData.splice(length + 1, length + 5)
     },
     async loadUsers() {
+      if (this.isFiltering) return
       const fetchedUsers = await getUsers(this.lazyFetch)
       const users = [...this.users, ...fetchedUsers]
       this.users = users
+    },
+    filterUsersBy(data, filter) {
+      return data.filter((user) => user.name.match(filter))
+    },
+  },
+  watch: {
+    filter: function () {
+      const context = this
+      this.isFiltering = true
+      getUsers((response) => {
+        const data = response.default.slice() || response.slice()
+        if (context.filter) {
+          context.users = context.filterUsersBy(data, this.filter)
+        } else {
+          context.users = data.splice(1, 5)
+          context.isFiltering = false
+        }
+      })
     },
   },
 }
