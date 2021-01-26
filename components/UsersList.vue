@@ -9,23 +9,23 @@
           <small
             class="users-list__item__description__item users-list__item__description__item--email"
           >
-            {{ user.email }}
+            <span v-html="user.email"></span>
           </small>
 
           <h1
             class="users-list__item__description__item users-list__item__description__item--name"
           >
-            {{ user.name }}
+            <span v-html="user.name"></span>
           </h1>
 
           <small
             class="users-list__item__description__item users-list__item__description__item--occupation"
           >
-            {{ user.title }}
+            <span v-html="user.title"></span>
           </small>
 
           <small class="users-list__item__description__item">
-            {{ user.address }}, {{ user.city }}
+            <span v-html="user.address"></span>, <span v-html="user.city"></span>
           </small>
 
           <button class="btn-primary">SKIP SELECTION</button>
@@ -56,3 +56,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.term-highlight {
+  background-color: $highlight-yellow;
+}
+</style>

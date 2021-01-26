@@ -4,6 +4,20 @@
 
 <script>
 const getUsers = (cb) => import('~/data/users.json').then(cb)
+const highlightedTerm = (term) => `<span class="term-highlight">${term}</span>`
+const stringifiedUser = (user) => Object.keys(user).reduce((str, attr) => {
+  if (attr !== 'avatar') return str+= ` ${user[attr]}`
+  return str
+}, '')
+const highlight = (users, term) => {
+  return users.map((user) => {
+    const highlightedUser = {}
+    Object.keys(user).forEach((attr) => {
+      highlightedUser[attr] = user[attr].replace(term, highlightedTerm)
+    })
+    return highlightedUser
+  })
+}
 
 export default {
   props: {
@@ -33,14 +47,12 @@ export default {
       const users = [...this.users, ...fetchedUsers]
       this.users = users
     },
-    filterUsersBy(data, filter) {
-      return data.filter((user) => {
-        const stringifiedUser = Object.keys(user).reduce((str, attr) => {
-          if (attr !== 'avatar') return str+= ` ${user[attr]}`
-          return str
-        }, '')
-        return stringifiedUser.match(filter)
+    filterUsersBy(data, filter, fn) {
+      const foundUsers = data.filter((user) => {
+        return stringifiedUser(user).match(filter)
       })
+
+      return fn(foundUsers, filter)
     },
   },
   watch: {
@@ -50,7 +62,7 @@ export default {
       getUsers((response) => {
         const data = response.default.slice() || response.slice()
         if (context.filter) {
-          context.users = context.filterUsersBy(data, this.filter)
+          context.users = context.filterUsersBy(data, this.filter, highlight)
         } else {
           context.users = data.splice(1, 5)
           context.isFiltering = false
