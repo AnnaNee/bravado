@@ -1,42 +1,20 @@
 <template>
   <div class="content">
-    <div class="search-bar">
-      <input
-        class="search-bar__input"
-        v-model="search"
-        type="text"
-        placeholder="Type your search..."
-      />
-    </div>
-
-    <div class="usersList">
-      <ul>
-        <li v-for="user in filteredUsers" :key="user.email">
-          {{ user.name }}
-        </li>
-      </ul>
-    </div>
+    <SearchBar @on-search="handleSearch" />
+    <UsersContainer :filter="filter" />
   </div>
 </template>
 
 <script>
-const getUsers = () => import('~/data/users.json').then((d) => d.default || d)
-
 export default {
   data() {
     return {
-      users: [],
-      search: '',
+      filter: '',
     }
   },
-  async fetch() {
-    this.users = await getUsers()
-  },
-  computed: {
-    filteredUsers() {
-      return this.users.filter((user) => {
-        return user.name.match(this.search)
-      })
+  methods: {
+    handleSearch(filter) {
+      this.filter = filter
     },
   },
 }
@@ -48,6 +26,25 @@ export default {
     width: 100%;
     height: 48px;
     background-color: $light-grey;
+    padding-left: 50px;
+    font-size: 1.5em;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid $white;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 2px;
+  }
+
+  &__icon {
+    position: absolute;
+    padding: 15px 19px;
+
+    &::before {
+      content: '';
+      width: 17px;
+      height: 17px;
+      display: inline-block;
+      background-image: url('~assets/images/search-icon.svg');
+    }
   }
 }
 </style>
