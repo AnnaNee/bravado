@@ -1,5 +1,5 @@
 <template>
-  <div class="users-list" @scroll.passive="handleScroll">
+  <div data-test-id="list" class="users-list" @scroll.passive="handleScroll">
     <ul>
       <li v-for="user in users" :key="user.email" class="users-list__item">
         <div class="users-list__item__photo">
@@ -9,23 +9,24 @@
           <small
             class="users-list__item__description__item users-list__item__description__item--email"
           >
-            <span v-html="user.email"></span>
+            <span data-test-id="email" v-html="user.email"></span>
           </small>
 
           <h1
             class="users-list__item__description__item users-list__item__description__item--name"
           >
-            <span v-html="user.name"></span>
+            <span data-test-id="name" v-html="user.name"></span>
           </h1>
 
           <small
             class="users-list__item__description__item users-list__item__description__item--occupation"
           >
-            <span v-html="user.title"></span>
+            <span data-test-id="title" v-html="user.title"></span>
           </small>
 
           <small class="users-list__item__description__item">
-            <span v-html="user.address"></span>, <span v-html="user.city"></span>
+            <span data-test-id="address" v-html="user.address"></span>,
+            <span data-test-id="city" v-html="user.city"></span>
           </small>
 
           <button class="btn-primary">SKIP SELECTION</button>
