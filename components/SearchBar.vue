@@ -28,6 +28,12 @@ export default {
       search: '',
     }
   },
+  mounted() {
+    if (this.$route.query.filter) {
+      this.search = this.$route.query.filter
+      this.$emit('on-search', this.$route.query.filter)
+    }
+  },
   methods: {
     handleSearch: debounce(function () {
       this.$emit('on-search', this.search)
