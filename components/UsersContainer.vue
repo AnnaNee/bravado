@@ -34,7 +34,13 @@ export default {
       this.users = users
     },
     filterUsersBy(data, filter) {
-      return data.filter((user) => user.name.match(filter))
+      return data.filter((user) => {
+        const stringifiedUser = Object.keys(user).reduce((str, attr) => {
+          if (attr !== 'avatar') return str+= ` ${user[attr]}`
+          return str
+        }, '')
+        return stringifiedUser.match(filter)
+      })
     },
   },
   watch: {
