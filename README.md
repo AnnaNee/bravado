@@ -19,6 +19,7 @@ https://bravadoquest.herokuapp.com/
 
 This project uses Vuejs with Nuxtjs. All components are automatically imported and assets are loaded through `style-resources`.
 The app consists of three main components: `UsersList`, `UsersContainer` and `SearchBar`. They're all imported into `Index` page.
+There are two feature requests that I haven't had the time to implement: custom scrollbar and "Mark and suitable/Skip selection" toggle button.
 
 ![Components Diagram](https://i.imgur.com/6tJZzkk.png)
 
